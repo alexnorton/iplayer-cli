@@ -1,18 +1,12 @@
 {
   "name": "iplayer-cli",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
+  "version": "0.0.1",
+  "description": "Browse and watch BBC iPlayer from your terminal",
+  "main": "iplayer-cli.js",
+  "author": "Alex Norton",
   "license": "ISC",
   "dependencies": {
     "blessed": "0.0.51",
-    "node-spawn": "0.0.7",
-    "pty.js": "^0.2.7-1",
-    "request": "^2.55.0",
-    "term.js": "0.0.4"
+    "request": "^2.55.0"
   }
 }
