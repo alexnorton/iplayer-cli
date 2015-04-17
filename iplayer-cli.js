@@ -52,7 +52,7 @@ request({
     top: 7,
     left: 'center',
     width: '50%',
-    height: '100%',
+    bottom: 0,
     padding: {
       left: 1,
       right: 1
