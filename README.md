@@ -10,6 +10,7 @@ Uses [get_iplayer](https://github.com/get-iplayer/get_iplayer) for access to iPl
 
 ## Installation
 
+#### Mac OS X
 Dependencies can be installed on OS X using [Homebrew](http://brew.sh/):
 
     $ brew tap dinkypumpkin/get_iplayer
@@ -19,6 +20,36 @@ Dependencies can be installed on OS X using [Homebrew](http://brew.sh/):
 You also need to install the required Node.js modules:
 
     $ npm install
+
+#### Linux
+`cd` to the directory where you want to install `get_iplayer`
+
+    $ git clone git@github.com:get-iplayer/get_iplayer.git && cd get_iplayer && chmod 755 ./get_iplayer
+    $ sudo apt-get install rtmpdump mplayer libcaca0 ffmpeg atomicparsley id3v2
+
+`cd` again to the directory where you want to install `iplayer-cli`
+
+    $ git clone git@github.com:alexnorton/iplayer-cli.git && cd iplayer-cli && npm install
+   
+Edit `play.sh` to match the path of your `get-iplayer` executable.
+*Example:* 
+    #!/bin/bash
+    
+    PID=$1
+    
+    ~/softs/get_iplayer/get_iplayer \
+        --silent \
+        --pid=$PID\
+        --stream \
+        --modes=hlslow | \
+      mplayer -framedrop \
+        -contrast 25 \
+        -really-quiet \
+        -vo caca \
+        -cache 8192 \
+        /dev/fd/3 3<&0 </dev/tty
+
+
 
 ## Usage
 
