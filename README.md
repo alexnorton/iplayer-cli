@@ -32,7 +32,8 @@ You also need to install the required Node.js modules:
     $ git clone git@github.com:alexnorton/iplayer-cli.git && cd iplayer-cli && npm install
    
 Edit `play.sh` to match the path of your `get-iplayer` executable.
-*Example:* 
+*Example:*
+
     #!/bin/bash
     
     PID=$1
