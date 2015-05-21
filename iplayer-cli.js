@@ -1,22 +1,61 @@
 var blessed = require('blessed'),
   request = require('request');
 
-var screen = blessed.screen({
-  autoPadding: true,
-  smartCSR: true
-});
+var screen, loading;
 
-screen.key('C-c', function() {
-  return process.exit(0);
-});
+function init() {
+  screen = blessed.screen({
+    autoPadding: true,
+    smartCSR: true
+  });
 
-screen.title = 'iplayer-cli';
+  screen.key('C-c', function() {
+    return process.exit(0);
+  });
 
-request({
-  url: 'http://ibl.api.bbci.co.uk/ibl/v1/home/highlights?rights=web',
-  json: true
-}, function(error, response, body) {
+  screen.title = 'iplayer-cli';
 
+  showLoadingDialog();
+
+  getHighlights(showList);
+}
+
+function showLoadingDialog() {
+  loading = blessed.box({
+    parent: screen,
+    top: 'center',
+    left: 'center',
+    width: '25%',
+    height: 3,
+    content:  'Loading...',
+    align: 'center',
+    style: {
+      bg: 'default',
+      fg: 'magenta'
+    },
+    border: {
+      type: 'line'
+    }
+  });
+
+  screen.render();
+}
+
+function hideLoadingDialog() {
+  screen.remove(loading);
+  screen.render();
+}
+
+function getHighlights(callback) {
+  request({
+    url: 'http://ibl.api.bbci.co.uk/ibl/v1/home/highlights?rights=web',
+    json: true
+  }, function(error, response, body) {
+    callback(error, body);
+  });
+}
+
+function showList(error, body) {
   if(error) {
     return process.exit(0);
   }
@@ -85,36 +124,19 @@ request({
 
   list.on('select', function(item, index) {
 
-    var loading = blessed.box({
-      parent: screen,
-      top: 'center',
-      left: 'center',
-      width: '25%',
-      height: 3,
-      content:  'Loading...',
-      align: 'center',
-      style: {
-        bg: 'default',
-        fg: 'magenta'
-      },
-      border: {
-        type: 'line'
-      }
-    });
-
-    screen.render();
+    showLoadingDialog();
 
     var episode = episodes[index];
 
     setTimeout(function() {
       screen.exec('./play.sh', [episode.id], null, function() {
-        screen.remove(loading);
-        screen.render();
+        hideLoadingDialog();
       });
     }, 0);
 
   });
 
   screen.render();
+}
 
-});
+init();
