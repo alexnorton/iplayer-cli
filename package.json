@@ -6,7 +6,7 @@
   "author": "Alex Norton",
   "license": "ISC",
   "dependencies": {
-    "blessed": "0.0.51",
+    "blessed": "0.1.81",
     "request": "^2.55.0"
   }
 }
