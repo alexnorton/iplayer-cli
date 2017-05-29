@@ -1,5 +1,7 @@
 # iplayer-cli
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/alexnorton/iplayer-cli.svg)](https://greenkeeper.io/)
+
 Browse and watch BBC iPlayer from your terminal.
 
 Uses [get_iplayer](https://github.com/get-iplayer/get_iplayer) for access to iPlayer content and [MPlayer](https://www.mplayerhq.hu/) with [libcaca](http://caca.zoy.org/wiki/libcaca) for playback in the terminal, all  wrapped up in an interface powered by [blessed](https://github.com/chjj/blessed).
